@@ -4,6 +4,7 @@ const {
   fetchOrdersByUser,
   deleteOrder,
   updateOrder,
+  fetchAllOrders,
 } = require("../controller/Order");
 const router = express.Router();
 
@@ -12,5 +13,6 @@ router
   .post("/", createOrders)
   .get("/", fetchOrdersByUser)
   .delete("/:id", deleteOrder)
-  .patch("/:id", updateOrder);
+  .patch("/:id", updateOrder)
+  .get("/user/:userId", fetchAllOrders);
 exports.router = router;
