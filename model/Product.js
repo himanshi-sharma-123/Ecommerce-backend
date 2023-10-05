@@ -7,7 +7,7 @@ const productSchema = new Schema({
   price: {
     type: Number,
     min: [0, "wrong min price"],
-    max: [1000, "wrong max price"],
+    max: [10000, "wrong max price"],
   },
   discountPercentage: {
     type: Number,
