@@ -18,15 +18,15 @@ exports.fetchAllProducts = async (req, res) => {
   //pagination={_page:1,_limit=10 }
   // we have to try with multiple categories and brands after change in frontend
 
-  // let condition = {};
-  // if (!req.query.admin) {
-  //   condition.deleted = { $ne: true };
-  // }
+  let condition = {};
+  if (!req.query.admin) {
+    condition.deleted = { $ne: true };
+  }
 
   let query = Product.find({});
-  let totalProductsQuery = Product.find({});
+  // let totalProductsQuery = Product.find({});
 
-  // let totalProductsQuery = Product.find(condition);
+  let totalProductsQuery = Product.find(condition);
 
   if (req.query.category) {
     query = query.find({ category: req.query.category });
