@@ -95,8 +95,10 @@ exports.fetchAllOrders = async (req, res) => {
   //pagination={_page:1,_limit=10 }
   // we have to try with multiple categories and brands after change in frontend
 
-  let query = Order.find({});
-  let totalOrdersQuery = Order.find({});
+  // let query = Order.find({});
+  // let totalOrdersQuery = Order.find({});
+  let query = Order.find({ deleted: { $ne: true } });
+  let totalOrdersQuery = Order.find({ deleted: { $ne: true } });
 
   //TODO: How to get sort on discounted Price not on Actual Price
   if (req.query._sort && req.query._order) {
