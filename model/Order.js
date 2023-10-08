@@ -10,7 +10,9 @@ const orderSchema = new Schema({
   status: { type: String, default: "pending" },
   selectedAddress: { type: Schema.Types.Mixed, required: true },
 });
-
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+  .eyJpZCI6IjY1MjI3YzNiMzBkMzQ0NzQ5YTg5M2M1NSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjk2NzU4ODQzfQ
+  .jNAlgqSQLurbsbbJO8fMdoQkENwYYrqFrMaXZnqSeAI;
 const virtual = orderSchema.virtual("id");
 virtual.get(function () {
   return this._id;
