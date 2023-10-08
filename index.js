@@ -6,6 +6,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const crypto = require("crypto");
 const JwtStrategy = require("passport-jwt").Strategy;
+const cookieParser = require("cookie-parser");
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const jwt = require("jsonwebtoken");
 const productsRouter = require("./routes/Products");
@@ -19,16 +20,19 @@ const orderRouter = require("./routes/Order");
 const cors = require("cors");
 const { User } = require("./model/User");
 const { isRouteErrorResponse } = require("react-router-dom");
-const { isAuth, sanitizeUser } = require("./services/common");
+const { isAuth, sanitizeUser, cookieExtractor } = require("./services/common");
 
 const SECRET_KEY = "SECRET_KEY";
 
 //JWT options
 const opts = {};
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.jwtFromRequest = cookieExtractor;
 opts.secretOrKey = SECRET_KEY; //TODO: this should not be in code;
 
 //middlewares
+server.use(express.static("build"));
+server.use(cookieParser());
+
 server.use(
   session({
     secret: "keyboard cat",
@@ -81,7 +85,7 @@ passport.use(
           }
           const token = jwt.sign(sanitizeUser(user), SECRET_KEY);
 
-          done(null, token); // this line sends to serialize
+          done(null, { token }); // this line sends to serialize
         }
       );
     } catch (err) {
@@ -96,7 +100,7 @@ passport.use(
   new JwtStrategy(opts, async function (jwt_payload, done) {
     console.log({ jwt_payload });
     try {
-      const user = await User.findOne({ id: jwt_payload.sub });
+      const user = await User.findById(jwt_payload.id);
       if (user) {
         return done(null, sanitizeUser(user));
       } else {
