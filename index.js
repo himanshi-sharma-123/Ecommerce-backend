@@ -85,7 +85,7 @@ passport.use(
           }
           const token = jwt.sign(sanitizeUser(user), SECRET_KEY);
 
-          done(null, { token }); // this line sends to serialize
+          done(null, { id: user.id, role: user.role }); // this line sends to serialize
         }
       );
     } catch (err) {

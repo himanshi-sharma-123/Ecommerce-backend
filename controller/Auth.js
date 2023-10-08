@@ -27,7 +27,7 @@ exports.createUser = async (req, res) => {
               httpOnly: true,
             });
 
-            res.status(201).json(token);
+            res.status(201).json({ id: doc.id, role: doc.role });
           }
         });
       }
@@ -64,6 +64,10 @@ exports.loginUser = async (req, res) => {
   // }
 };
 
-exports.checkUser = async (req, res) => {
-  res.json({ status: "success", user: req.user });
+exports.checkAuth = async (req, res) => {
+  if (req.user) {
+    res.json(req.user);
+  } else {
+    res.sendStatus(401);
+  }
 };
