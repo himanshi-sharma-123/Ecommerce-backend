@@ -17,6 +17,7 @@ const usersRouter = require("./routes/Users");
 const authRouter = require("./routes/Auth");
 const cartRouter = require("./routes/Cart");
 const orderRouter = require("./routes/Order");
+const path = require("path");
 
 const cors = require("cors");
 const { User } = require("./model/User");
@@ -65,7 +66,7 @@ opts.jwtFromRequest = cookieExtractor;
 opts.secretOrKey = process.env.JWT_SECRET_KEY; //TODO: this should not be in code;
 
 //middlewares
-server.use(express.static("build"));
+server.use(express.static(path.resolve(__dirname, "build")));
 server.use(cookieParser());
 
 server.use(
