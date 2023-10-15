@@ -22,8 +22,8 @@ exports.cookieExtractor = function (req) {
 
   //demo@gmail.com
 
-  token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MmFhOTZjZTcyZTFiYzdlYWE0MDc0ZiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjk3Mjk0NzA2fQ.NgsJQwKUKX_GT-HbzoPN_n_4WvK6hhjoXzBxR8IOyWM";
+  // token =
+  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MmFhOTZjZTcyZTFiYzdlYWE0MDc0ZiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjk3Mjk0NzA2fQ.NgsJQwKUKX_GT-HbzoPN_n_4WvK6hhjoXzBxR8IOyWM";
 
   //admin@gmmail.com
 
