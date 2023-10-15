@@ -23,6 +23,7 @@ const cors = require("cors");
 const { User } = require("./model/User");
 const { isRouteErrorResponse } = require("react-router-dom");
 const { isAuth, sanitizeUser, cookieExtractor } = require("./services/common");
+const { Order } = require("./model/Order");
 
 //WEBHOOK
 // TODO: we will capture actual order after deploying out server live on public URL
@@ -31,7 +32,7 @@ const endpointSecret = process.env.ENDPOINT_SECRET;
 server.post(
   "/webhook",
   express.raw({ type: "application/json" }),
-  (request, response) => {
+  async (request, response) => {
     const sig = request.headers["stripe-signature"];
 
     let event;
@@ -48,7 +49,11 @@ server.post(
       case "payment_intent.succeeded":
         const paymentIntentSucceeded = event.data.object;
         console.log(paymentIntentSucceeded);
-        // Then define and call a function to handle the event payment_intent.succeeded
+        const order = await Order.findById(
+          paymentIntentSucceeded.metadata.orderId
+        );
+        order.paymentStatus = "recieved";
+        await order.save();
         break;
       // ... handle other event types
       default:
