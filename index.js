@@ -98,6 +98,10 @@ server.use("/auth", authRouter.router);
 server.use("/cart", isAuth(), cartRouter.router);
 server.use("/orders", isAuth(), orderRouter.router);
 
+// send mail with defined transport object
+// Mail endpoint
+// we don't want external access to mail
+
 // this line we add to make react router work in case of other routes doesn't match
 server.get("*", (req, res) =>
   res.sendFile(path.resolve("build", "index.html"))
