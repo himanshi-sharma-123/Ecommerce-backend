@@ -68,6 +68,14 @@ exports.loginUser = async (req, res) => {
   // }
 };
 
+exports.logout = async (req, res) => {
+  res.cookie("jwt", null, {
+    expires: new Date(Date.now()),
+    httpOnly: true,
+  });
+  res.send(200);
+};
+
 exports.checkAuth = async (req, res) => {
   if (req.user) {
     res.json(req.user);
