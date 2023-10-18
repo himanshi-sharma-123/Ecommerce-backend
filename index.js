@@ -68,7 +68,7 @@ server.post(
 //JWT options
 const opts = {};
 opts.jwtFromRequest = cookieExtractor;
-opts.secretOrKey = process.env.JWT_SECRET_KEY; //TODO: this should not be in code;
+opts.secretOrKey = process.env.JWT_SECRET_KEY;
 
 //middlewares
 server.use(express.static(path.resolve(__dirname, "build")));

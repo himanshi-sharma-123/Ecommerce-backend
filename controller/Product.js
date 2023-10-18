@@ -16,7 +16,6 @@ exports.fetchAllProducts = async (req, res) => {
   // filter = {"category":["smartphone","laptops"]}
   //sort = {_sort:"price",_order:"desc"}
   //pagination={_page:1,_limit=10 }
-  // we have to try with multiple categories and brands after change in frontend
 
   let condition = {};
   if (!req.query.admin) {
@@ -28,16 +27,18 @@ exports.fetchAllProducts = async (req, res) => {
 
   let totalProductsQuery = Product.find(condition);
 
+  console.log(req.query.category);
+
   if (req.query.category) {
-    query = query.find({ category: req.query.category });
+    query = query.find({ category: { $in: req.query.category.split(",") } });
     totalProductsQuery = totalProductsQuery.find({
-      category: req.query.category,
+      category: { $in: req.query.category.split(",") },
     });
   }
   if (req.query.brand) {
-    query = query.find({ brand: req.query.brand });
+    query = query.find({ brand: { $in: req.query.brand.split(",") } });
     totalProductsQuery = totalProductsQuery.find({
-      brand: req.query.brand,
+      brand: { $in: req.query.brand.split(",") },
     });
   }
 
